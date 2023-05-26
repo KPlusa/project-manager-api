@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManager.Api", "src\ProjectManager.Api\ProjectManager.Api.csproj", "{ADCA0286-59F8-4BE2-A731-05DC6B1528F2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{760A9245-E217-4CD5-9168-6462C3C5FA97}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,7 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{ADCA0286-59F8-4BE2-A731-05DC6B1528F2} = {760A9245-E217-4CD5-9168-6462C3C5FA97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB21C1B2-F2C8-4921-8EE4-8EE384FBE94D}
