@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
-using ProjectManager.Api.Models;
+﻿using System.Text.Json.Serialization;
 
-namespace ProjectManager.Api;
+namespace ProjectManager.Api.Models;
 
 public sealed class Project
 {
@@ -22,6 +21,6 @@ public sealed class Project
     public decimal Amount { get; set; }
 
     public string? Comments { get; set; }
-    public Status IdStatusNavigation { get; set; } = null!;
-    public Type IdTypeNavigation { get; set; } = null!;
+    [JsonIgnore] public Status IdStatusNavigation { get; set; } = null!;
+    [JsonIgnore] public Type IdTypeNavigation { get; set; } = null!;
 }

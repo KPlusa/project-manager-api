@@ -1,9 +1,10 @@
 global using ProjectManager.Api.Models;
 global using ProjectManager.Api.Data;
 global using ProjectManager.Api.Models.Dto;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-using ProjectManager.Api;
 using ProjectManager.Api.Services.ProjectService;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,7 +15,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ProjectManagerDataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectManagerDb")));
-builder.Services.AddScoped<IProjectService,ProjectService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 
 var app = builder.Build();
 

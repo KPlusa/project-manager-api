@@ -29,6 +29,7 @@ namespace ProjectManager.Api.Controllers
 
             return Ok(result);
         }
+
         [HttpPut("{id}")]
         public async Task<ActionResult<List<Project>>> UpdateProject(int id, ProjectDto request)
         {
@@ -48,11 +49,12 @@ namespace ProjectManager.Api.Controllers
 
             return Ok(result);
         }
+
         [HttpPost]
-        public async Task<ActionResult<List<Project>>> AddProject(ProjectDto project)
+        public async Task<ActionResult?> AddProject(ProjectDto project)
         {
             var result = await _projectService.AddProject(project);
-            return Ok(result);
+            return result is not null ? Created($"/project?id={result.IdProject}", result) : null;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace ProjectManager.Api.Services.ProjectService;
 
@@ -24,7 +23,7 @@ public class ProjectService : IProjectService
         return project ?? null;
     }
 
-    public async Task<List<Project>?> AddProject(ProjectDto request)
+    public async Task<Project?> AddProject(ProjectDto request)
     {
         var status = await _context.Statuses.FirstOrDefaultAsync(s => s.StatusName == request.Status);
         var type = await _context.Types.FirstOrDefaultAsync(s => s.TypeName == request.Type);
@@ -43,7 +42,7 @@ public class ProjectService : IProjectService
         };
         _context.Projects.Add(project);
         await _context.SaveChangesAsync();
-        return await _context.Projects.ToListAsync();
+        return project;
     }
 
     public async Task<List<Project>?> UpdateProject(int id, ProjectDto request)

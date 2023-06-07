@@ -4,7 +4,6 @@ namespace ProjectManager.Api.Data;
 
 public partial class ProjectManagerDataContext : DbContext
 {
-
     public ProjectManagerDataContext(DbContextOptions<ProjectManagerDataContext> options, IConfiguration configuration)
         : base(options)
     {
@@ -21,15 +20,13 @@ public partial class ProjectManagerDataContext : DbContext
     {
         modelBuilder.Entity<Project>(entity =>
         {
-            entity.HasKey(e => e.IdProject)
-                .HasName("PK_PROJEKT")
-                .IsClustered(false);
+            entity.HasKey(e => e.IdProject).HasName("PK__project__274AE1B335BE8068");
 
             entity.ToTable("project");
 
-            entity.HasIndex(e => e.IdType, "projekt_rodzaj_FK");
+            entity.HasIndex(e => e.ProjectTitle, "UQ__project__125CEB0A13A06F9B").IsUnique();
 
-            entity.HasIndex(e => e.IdStatus, "projekt_status_FK");
+            entity.HasIndex(e => e.ProjectNo, "UQ__project__BC79D7FA001E6F67").IsUnique();
 
             entity.Property(e => e.IdProject).HasColumnName("id_project");
             entity.Property(e => e.Amount)
@@ -59,21 +56,21 @@ public partial class ProjectManagerDataContext : DbContext
             entity.HasOne(d => d.IdStatusNavigation).WithMany(p => p.Projects)
                 .HasForeignKey(d => d.IdStatus)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PROJEKT_PROJEKT_S_STATUS");
+                .HasConstraintName("FK__project__id_stat__3F466844");
 
             entity.HasOne(d => d.IdTypeNavigation).WithMany(p => p.Projects)
                 .HasForeignKey(d => d.IdType)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PROJEKT_PROJEKT_R_RODZAJ");
+                .HasConstraintName("FK__project__id_type__3E52440B");
         });
 
         modelBuilder.Entity<Status>(entity =>
         {
-            entity.HasKey(e => e.IdStatus)
-                .HasName("PK_STATUS")
-                .IsClustered(false);
+            entity.HasKey(e => e.IdStatus).HasName("PK__status__5D2DC6E8ACE9A308");
 
             entity.ToTable("status");
+
+            entity.HasIndex(e => e.StatusName, "UQ__status__A9BE6F7622972B31").IsUnique();
 
             entity.Property(e => e.IdStatus).HasColumnName("id_status");
             entity.Property(e => e.StatusName)
@@ -84,11 +81,11 @@ public partial class ProjectManagerDataContext : DbContext
 
         modelBuilder.Entity<Type>(entity =>
         {
-            entity.HasKey(e => e.IdType)
-                .HasName("PK_RODZAJ")
-                .IsClustered(false);
+            entity.HasKey(e => e.IdType).HasName("PK__type__C3F091E069A8388C");
 
             entity.ToTable("type");
+
+            entity.HasIndex(e => e.TypeName, "UQ__type__543C4FD9E9A94EC2").IsUnique();
 
             entity.Property(e => e.IdType).HasColumnName("id_type");
             entity.Property(e => e.TypeName)
